@@ -35,13 +35,15 @@ def get_repository() -> SQLitePredictionRepository:
 
 
 @st.cache_resource
-def get_predictor() -> JoblibPredictor | None:
+def get_predictor():
     try:
-        return JoblibPredictor(DEFAULT_MODEL_ARTIFACT)
-    except ModelArtifactNotFoundError as exc:
-        logger.warning("%s", exc)
-        return None
+        predictor = JoblibPredictor(DEFAULT_MODEL_ARTIFACT)
+        st.success("Model loaded successfully")
+        return predictor
 
+    except Exception as e:
+        st.exception(e)
+        return None
 
 def render_predict_tab(predictor, repository) -> None:
     col_map, col_panel = st.columns([1.7, 1], gap="large")
