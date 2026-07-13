@@ -16,7 +16,7 @@ BASE_DIR = Path(__file__).resolve().parents[1]          # uber-fare-app/
 MODEL_DIR = BASE_DIR / "Model" / "artifacts"
 DB_PATH = BASE_DIR / "app" / "db" / "predictions.db"
 
-DEFAULT_MODEL_ARTIFACT = MODEL_DIR / "random_forest_regression.joblib"
+DEFAULT_MODEL_ARTIFACT = MODEL_DIR / "model.joblib"
 
 AVAILABLE_MODEL_ARTIFACTS: dict[str, str] = {
     "Random Forest": "random_forest_regression.joblib",
@@ -107,7 +107,7 @@ AVG_SPEED_KMH_RUSH_HOUR = 14.0
 # App metadata / theme tokens
 # ──────────────────────────────────────────────
 
-APP_TITLE = "FareCast"
+APP_TITLE = "Fare Prediction"
 APP_TAGLINE = "Plan your trip. Know your fare."
 APP_CITY = "New York City"
 
