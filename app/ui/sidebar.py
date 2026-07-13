@@ -1,40 +1,43 @@
-"""Trip detail controls: passenger count, ride type, pickup date/time.
-
-Renders inline (NOT in st.sidebar) so the layout matches a real ride-hailing
-app: map dominant, controls in a panel alongside it. Filename kept as
-sidebar.py to match the established module contract in main.py.
-"""
+"""Trip controls panel: passengers, ride type, pickup date/time."""
 from datetime import date, datetime, time
 
 import streamlit as st
 
-from config import MAX_PASSENGERS, MIN_PASSENGERS, RIDE_TYPES
+from config import MAX_PASSENGERS, MIN_PASSENGERS, RIDE_TYPES, RideType
 
 
-def render_sidebar() -> dict:
-    """Render trip-detail inputs and return the collected values."""
-    st.markdown("**Passengers**")
-    passenger_count = st.slider(
-        "Passengers", min_value=MIN_PASSENGERS, max_value=MAX_PASSENGERS, value=1,
+def render_trip_panel() -> dict:
+    """Render trip controls in the main panel and return collected values."""
+    st.markdown('<p class="panel-title">Passengers</p>', unsafe_allow_html=True)
+    passenger_count = st.number_input(
+        "Passengers",
+        min_value=MIN_PASSENGERS,
+        max_value=MAX_PASSENGERS,
+        value=1,
+        step=1,
         label_visibility="collapsed",
     )
 
-    st.markdown("**Ride type**")
-    ride_labels = [rt.label for rt in RIDE_TYPES]
+    st.markdown('<p class="panel-title">Choose a ride</p>', unsafe_allow_html=True)
+    ride_labels = [
+        f"{rt.label}  ·  {rt.description}  ·  {rt.capacity} seats"
+        for rt in RIDE_TYPES
+    ]
     chosen_idx = st.radio(
-        "Ride type", options=range(len(RIDE_TYPES)),
-        format_func=lambda i: ride_labels[i], label_visibility="collapsed",
-        horizontal=True,
+        "Ride type",
+        options=range(len(RIDE_TYPES)),
+        format_func=lambda i: ride_labels[i],
+        label_visibility="collapsed",
     )
-    ride_type = RIDE_TYPES[chosen_idx]
+    ride_type: RideType = RIDE_TYPES[chosen_idx]
 
     if passenger_count > ride_type.capacity:
         st.warning(
-            f"{ride_type.label} seats up to {ride_type.capacity}. "
-            "Pick a bigger ride type or reduce passengers."
+            f"{ride_type.label} fits up to {ride_type.capacity} passengers. "
+            "Choose a larger ride or reduce the passenger count."
         )
 
-    st.markdown("**Pickup time**")
+    st.markdown('<p class="panel-title">Pickup time</p>', unsafe_allow_html=True)
     col_date, col_time = st.columns(2)
     with col_date:
         trip_date = st.date_input("Date", value=date.today(), label_visibility="collapsed")
