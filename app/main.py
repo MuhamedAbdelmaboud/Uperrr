@@ -105,6 +105,8 @@ def main() -> None:
 
     repository = get_repository()
     predictor = get_predictor()
+    st.write("MODEL PATH:", DEFAULT_MODEL_ARTIFACT)
+    st.write("EXISTS:", DEFAULT_MODEL_ARTIFACT.exists())
 
     tab_predict, tab_history, tab_models = st.tabs(["Plan trip", "Trip history", "Models"])
 
