@@ -23,7 +23,7 @@ def render_results(quote: PriceQuote | None, eta_minutes: int | None) -> None:
         surge_html = """
             <div class="surge-banner">
                 <span class="surge-dot"></span>
-                Higher demand — fares are elevated
+                Higher demand fares are elevated
             </div>
         """
 
