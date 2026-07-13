@@ -16,7 +16,7 @@ BASE_DIR = Path(__file__).resolve().parents[1]          # uber-fare-app/
 MODEL_DIR = BASE_DIR / "Model" / "artifacts"
 DB_PATH = BASE_DIR / "app" / "db" / "predictions.db"
 
-DEFAULT_MODEL_ARTIFACT = MODEL_DIR / "model/artifacts/model.joblib"
+DEFAULT_MODEL_ARTIFACT = MODEL_DIR / "Uberrr/model/artifacts/model.joblib"
 
 AVAILABLE_MODEL_ARTIFACTS: dict[str, str] = {
     "Random Forest": "random_forest_regression.joblib",
