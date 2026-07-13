@@ -24,6 +24,10 @@ from ui.styles import inject_global_styles, render_header  # noqa: E402
 logging.basicConfig(level=logging.INFO, format=LOG_FORMAT)
 logger = logging.getLogger(__name__)
 
+from pathlib import Path
+
+st.write("Current working directory:", Path.cwd())
+st.write("Files in Model/artifacts:", list((Path.cwd() / "Model" / "artifacts").glob("*")))
 
 @st.cache_resource
 def get_repository() -> SQLitePredictionRepository:
